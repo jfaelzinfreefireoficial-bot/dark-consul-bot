@@ -1,8 +1,9 @@
 const TelegramBot = require('node-telegram-bot-api');
 const fs = require('fs');
+const path = require('path');
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
-const PASTA_BASE = '/storage/emulated/0/Download/DARK-CONSUL - Bot/';
+const PASTA_BASE = path.join(__dirname, 'arquivos');
 
 const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 
@@ -11,7 +12,6 @@ if (!fs.existsSync(PASTA_BASE)) fs.mkdirSync(PASTA_BASE, { recursive: true });
 bot.onText(/\/start/, (msg) => {
   bot.sendMessage(msg.chat.id,
 'Bem-vindo ao DARK-CONSUL Bot.\n\n' +
-'Pasta: ' + PASTA_BASE + '\n\n' +
 'Comandos:\n' +
 '/status\n' +
 '/zip nome\n' +
@@ -24,7 +24,6 @@ bot.onText(/\/status/, (msg) => {
   const qtd = fs.existsSync(PASTA_BASE) ? fs.readdirSync(PASTA_BASE).length : 0;
   bot.sendMessage(msg.chat.id,
 'Bot ONLINE - Hospedado no Render\n' +
-'Pasta local: ' + PASTA_BASE + '\n' +
 'Arquivos: ' + qtd
   );
 });
@@ -32,22 +31,22 @@ bot.onText(/\/status/, (msg) => {
 bot.onText(/\/zip (.+)/, (msg, match) => {
   const nome = match[1];
   bot.sendMessage(msg.chat.id,
-'1. Abra o ZArchiver\n' +
+'1. Abra o ZArchiver no seu celular\n' +
 '2. Va em: Download -> DARK-CONSUL - Bot\n' +
 '3. Toque e segure: ' + nome + '\n' +
 '4. Selecione: Comprimir\n' +
-'Caminho: ' + PASTA_BASE
+'Pasta no celular: Download/DARK-CONSUL - Bot'
   );
 });
 
 bot.onText(/\/unzip (.+)/, (msg, match) => {
   const arq = match[1];
   bot.sendMessage(msg.chat.id,
-'1. Abra o ZArchiver\n' +
+'1. Abra o ZArchiver no seu celular\n' +
 '2. Va em: Download -> DARK-CONSUL - Bot\n' +
 '3. Toque e segure: ' + arq + '\n' +
 '4. Selecione: Extrair aqui\n' +
-'Caminho: ' + PASTA_BASE
+'Pasta no celular: Download/DARK-CONSUL - Bot'
   );
 });
 
@@ -69,4 +68,5 @@ setInterval(() => {
 const PORT = process.env.PORT || 3000;
 require('http').createServer((req, res) => {
   res.end('Bot Online');
-}).listen(PORT);
+}).lis
+           ten(PORT);
