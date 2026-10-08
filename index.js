@@ -4,9 +4,8 @@ const path = require('path');
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const PASTA_BASE = path.join(__dirname, 'arquivos');
-const URL = process.env.RENDER_EXTERNAL_URL;
 
-const bot = new TelegramBot(BOT_TOKEN, { webHook: true });
+const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 
 if (!fs.existsSync(PASTA_BASE)) fs.mkdirSync(PASTA_BASE, { recursive: true });
 
@@ -62,21 +61,12 @@ bot.onText(/\/github/, (msg) => {
   );
 });
 
+setInterval(() => {
+  console.log('Ativo');
+}, 300000);
+
 const PORT = process.env.PORT || 3000;
-const express = require('express');
-const app = express();
-
-app.use(express.json());
-app.post(`/bot${BOT_TOKEN}`, (req, res) => {
-  bot.processUpdate(req.body);
-  res.sendStatus(200);
-});
-
-app.listen(PORT, async () => {
-  console.log('Servidor rodando na porta ' + PORT);
-  if (URL) {
-    await bot.setWebHook(`${URL}/bot${BOT_TOKEN}`);
-    console.log('Webhook configurado
-');
-  }
-});
+require('http').createServer((req, res) => {
+  res.end('Bot Online');
+}).lis
+  ten(PORT);
