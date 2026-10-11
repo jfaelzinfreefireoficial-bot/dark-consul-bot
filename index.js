@@ -13,7 +13,7 @@ const PASTA_BASE = './arquivos/';
 const WEBHOOK_PATH = `/bot${BOT_TOKEN}`;
 
 // ========== SUA IMAGEM/LOGO DO BOT — LINK ATUALIZADO ✅ ==========
-const IMAGEM_LOGO_URL = "https://i.postimg.cc/tJGcPjPQ/1791726554389.png";
+const IMAGEM_LOGO_URL = "https://i.postimg.cc/RZxcB0mF/1791726554389.jpg";
 
 // ========== VALIDAÇÃO ==========
 if (!BOT_TOKEN || !RENDER_URL || !MP_ACCESS_TOKEN) {
@@ -54,8 +54,24 @@ const PRODUTOS = {
                 "Não fique pra trás, melhore seu jogo HOJE!\n" +
                 "👉 Garanta já o seu e suba de rank com muito mais facilidade! Vem comigo! 🚀\n\n" +
                 "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
-    imagemUrl: "https://files.catbox.moe/5eehlb.png",
+    imagemUrl: "https://i.postimg.cc/TwBc5qzw/1791720026046.jpg",
     linkEntrega: "https://www.mediafire.com/file/sjnmojlnhi0kga5/REAL_SENS7X_PRO_-_FREE_FIRE_CLIENTE.7z/file"
+  }
+  "inter-editavel": {
+    id: "inter-editavel",
+    nome: "INTER EDITÁVEL 100% COMPLETO",
+    valor: 5.00,
+    descricao: "VENHA ADQUIRIR O MELHOR APLICATIVO EDITÁVEL COMPLETO\n\n" +
+                "Lembrando não me responsabilizo por uso de forma errado , fique ciente de seus atos!\n\n" +
+                "✅ Simulador real de transferências\n" +
+                "✅ Gera comprovantes Reais e pode compartilhar com diversas plataformas e amigos\n" +
+                "✅ Perfil , foto , nome 100% editáveis\n" +
+                "✅ Gerar dados aleatórios , personalizar dados!\n\n" +
+                "Não fique pra trás, melhore aplicativo de simulador real!\n" +
+                "👉 Garanta já o seu aplicativo Inter Banco simulador com muito mais facilidade! Vem comigo! 🚀\n\n" +
+                "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
+    imagemUrl: "https://i.postimg.cc/0Q7zZY6r/download-(1).png",
+    linkEntrega: "https://www.mediafire.com/file/gpilqf0igtacjvh/Base_-_Banco_Inter_100%2525_Editavel.7z/file"
   }
 };
 
