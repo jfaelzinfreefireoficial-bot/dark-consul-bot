@@ -1,12 +1,14 @@
 {
   "name": "dark-consul-bot",
-  "version": "1.0.0",
+  "version": "3.0.0",
+  "description": "Bot Loja — Pagamento Pix Automático Mercado Pago",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
     "node-telegram-bot-api": "^0.66.0",
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "mercadopago": "^2.0.12"
   }
 }
