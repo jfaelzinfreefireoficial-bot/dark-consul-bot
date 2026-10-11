@@ -50,28 +50,22 @@ const PRODUTOS = {
                 "✅ Resultado já na primeira partida!\n\n" +
                 "Não fique pra trás, melhore seu jogo HOJE!\n" +
                 "👉 Garanta já o seu e suba de rank com muito mais facilidade! Vem comigo! 🚀\n\n" +
-                "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
+                "👉 Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
     imagemUrl: "https://files.catbox.moe/5eehlb.png",
-    linkEntrega: "https://files.catbox.moe/5eehlb.png"
-  }
-  
-  const PRODUTOS = {
-  "nubank-editavel": {
-    id: "nubank-editavel",
-    nome: "NUBANK 100% EDITAVEL",
+    linkEntrega: "https://www.mediafire.com/file/sjnmojlnhi0kga5/REAL_SENS7X_PRO_-_FREE_FIRE_CLIENTE.7z/file"
+  },
+  "inter-editavel": {
+    id: "inter-editavel",
+    nome: "INTER 100% EDITAVEL",
     valor: 20.00,
-    descricao: "VENHA ADQUIRIR MELHOR APLICATIVO NUBANK 100%EDITAVEL\n\n" +
-                "gere comprovantes ,edite saldos , Editavel foto de perfil\n\n" +
-                "✅ comprovantes editavel\n" +
-                "✅ Funciona em qualquer android\n" +
-                "✅ FIX Bugs e testado aprovado por desenvolvedor profissional\n" +
-                "✅ Resultado rápido e precisão em buscas de dados fictícios\n\n" +
-                "Não fique pra trás, melhore suas vendas HOJE!\n" +
-                "👉 Garanta já o seu aplicativo APK PREMIUM ATUALIZADO🚀\n\n" +
-                "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
-    imagemUrl: "https://files.catbox.moe/6d2b14.jpeg",
-    linkEntrega: "https://files.catbox.moe/6d2b14.jpeg"
-  }
+    descricao: "Melhor APK Editavel com saldo e muito mais\n\n" +
+                "✅ Saldo Editavel\n" +
+                "✅ Gerar comprovantes e compartilhar\n" +
+                "✅ Editavel nome , dados , dados do destinatário\n\n" +
+                "Adquira já e começa lucrar com nosso aplicativo🚀",
+    imagemUrl: "https://files.catbox.moe/ce960a.png",
+    linkEntrega: "https://www.mediafire.com/file/gpilqf0igtacjvh/Base_-_Banco_Inter_100%2525_Editavel.7z/file"
+  },
 };
 
 let pedidos = lerArquivo(PEDIDOS_ARQUIVO);
@@ -82,7 +76,7 @@ app.post(WEBHOOK_PATH, (req, res) => {
   res.sendStatus(200);
 });
 
-// 📩 WEBHOOK — CONFirmaÇÃO DE PAGAMENTO
+// 📩 WEBHOOK — CONFIRMAÇÃO DE PAGAMENTO
 app.post('/mercado-pago-webhook', async (req, res) => {
   try {
     const { type, data } = req.body;
@@ -158,7 +152,7 @@ bot.onText(/\/loja/, async (msg) => {
   let mensagem = '🛒 NOSSA LOJA — PRODUTOS DISPONÍVEIS:\n\n';
   
   for (const [chave, prod] of Object.entries(PRODUTOS)) {
-    mensagem += `━━━━━━━━━━━━━━━━\n`;
+    mensagem += '━━━━━━━━━━━━━━━━\n';
     mensagem += `📦 ${prod.nome}\n`;
     mensagem += `💲 Valor: R$ ${prod.valor.toFixed(2)}\n`;
     mensagem += `👉 Digite /comprar ${chave}\n\n`;
@@ -296,4 +290,4 @@ app.listen(PORT, async () => {
   console.log(`✅ Webhook Telegram: ${RENDER_URL}${WEBHOOK_PATH}`);
   console.log(`✅ Webhook Mercado Pago: ${RENDER_URL}/mercado-pago-webhook`);
   console.log('✅ SENS7X MAX — Bot pronto para uso! 🚀🔥');
-});.
+});
