@@ -53,7 +53,7 @@ const PRODUTOS = {
                 "✅ Resultado já na primeira partida!\n\n" +
                 "Não fique pra trás, melhore seu jogo HOJE!\n" +
                 "👉 Garanta já o seu e suba de rank com muito mais facilidade! Vem comigo! 🚀\n\n" +
-                "📺 Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
+                "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
     imagemUrl: "https://files.catbox.moe/5eehlb.png",
     linkEntrega: "https://www.mediafire.com/file/sjnmojlnhi0kga5/REAL_SENS7X_PRO_-_FREE_FIRE_CLIENTE.7z/file"
   }
@@ -65,9 +65,9 @@ let pedidos = lerArquivo(PEDIDOS_ARQUIVO);
 function gerarTecladoFixo() {
   return {
     keyboard: [
-      ['🛒 Ver Produtos'],
-      ['📺 Canal YouTube', '💬 Suporte'],
-      ['📖 Sobre']
+      ['Ver Produtos'],
+      ['Canal YouTube', '💬 Suporte'],
+      ['Sobre']
     ],
     resize_keyboard: true,
     one_time_keyboard: false
@@ -98,17 +98,17 @@ app.post('/mercado-pago-webhook', async (req, res) => {
         await bot.sendMessage(compradorChatId,
           '✅ Pagamento confirmado!\n\n' +
           '🎉 Parabéns pela sua compra!\n\n' +
-          '🔗 Aqui está seu produto:\n' + pedido.linkEntrega + '\n\n' +
-          '📺 Não deixe de visitar nosso canal no YouTube:\n' +
+          '👉  Aqui está seu produto:\n' + pedido.linkEntrega + '\n\n' +
+          'Não deixe de visitar nosso canal no YouTube:\n' +
           'https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7\n\n' +
-          'Boa sorte nas partidas e BOA CAÇÃO! 🎯🔥'
+          'Bom jogo e resultados nas partidas'
         );
         
         if (ADMIN_CHAT_ID) {
           await bot.sendMessage(ADMIN_CHAT_ID,
-            '💰 VENDA REALIZADA!\n\n' +
-            '📦 Produto: ' + pedido.produtoNome + '\n' +
-            '💲 Valor: R$ ' + payment.transaction_amount.toFixed(2) + '\n' +
+            '👉 VENDA REALIZADA!\n\n' +
+            '👉 Produto: ' + pedido.produtoNome + '\n' +
+            '👉 Valor: R$ ' + payment.transaction_amount.toFixed(2) + '\n' +
             '🆔 Pedido: ' + pedidoId + '\n' +
             '👤 Cliente ID: ' + compradorChatId
           );
@@ -161,47 +161,47 @@ bot.onText(/\/start/, async (msg) => {
 });
 
 // 🛒 Botão: Ver Produtos
-bot.onText(/🛒 Ver Produtos/, async (msg) => {
+bot.onText(/Ver Produtos/, async (msg) => {
   const chatId = msg.chat.id;
   const produto = PRODUTOS['sens7x-freefire'];
   
   await bot.sendMessage(chatId,
     `📦 ${produto.nome}\n` +
-    `💲 Valor: R$ ${produto.valor.toFixed(2)}\n\n` +
+    `👉 Valor: R$ ${produto.valor.toFixed(2)}\n\n` +
     `${produto.descricao}\n\n` +
     '👉 Digite: /comprar sens7x-freefire'
   );
 });
 
 // 📺 Botão: Canal YouTube
-bot.onText(/📺 Canal YouTube/, async (msg) => {
+bot.onText(/Canal YouTube/, async (msg) => {
   await bot.sendMessage(msg.chat.id,
-    '📺 Nosso Canal no YouTube:\n\n' +
+    'Nosso Canal no YouTube:\n\n' +
     'https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7\n\n' +
-    'Se inscreva e acompanhe nossas novidades! 🎬🔥'
+    'Se inscreva e acompanhe nossas novidades!'
   );
 });
 
 // 💬 Botão: Suporte
-bot.onText(/💬 Suporte/, async (msg) => {
+bot.onText(/Suporte/, async (msg) => {
   await bot.sendMessage(msg.chat.id,
-    '📞 Suporte — SENS7X MAX\n\n' +
-    '📺 Canal YouTube: @fael_100k_yt\n' +
-    '💬 Dúvidas? É só mandar mensagem!\n\n' +
-    'Boa sorte nas partidas! 🎯🔥'
+    'Suporte — SENS7X MAX\n\n' +
+    'Canal YouTube: @fael_100k_yt\n' +
+    'Dúvidas? É só mandar mensagem!\n\n' +
+    'Boa sorte nas partidas!'
   );
 });
 
 // 📖 Botão: Sobre
-bot.onText(/📖 Sobre/, async (msg) => {
+bot.onText(/Sobre/, async (msg) => {
   const vendas = Object.values(pedidos).filter(p => p.entregue).length;
   await bot.sendMessage(msg.chat.id,
     '✅ SENS7X MAX\n\n' +
-    '🎯 Melhores packs de sensibilidade para Free Fire\n' +
-    '📦 Produtos: ' + Object.keys(PRODUTOS).length + '\n' +
+    '👉Melhores packs de sensibilidade para Free Fire\n' +
+    '👉Produtos: ' + Object.keys(PRODUTOS).length + '\n' +
     '💰 Vendas realizadas: ' + vendas + '\n' +
-    '📺 Canal: @fael_100k_yt\n\n' +
-    'Boa sorte nas partidas! 🎯🔥'
+    'Canal: @fael_100k_yt\n\n' +
+    'Boa sorte nas partidas!'
   );
 });
 
@@ -211,9 +211,9 @@ bot.onText(/\/loja/, async (msg) => {
   const produto = PRODUTOS['sens7x-freefire'];
   
   await bot.sendMessage(chatId,
-    '🛒 NOSSA LOJA:\n\n' +
+    '👉  NOSSA LOJA:\n\n' +
     `📦 ${produto.nome}\n` +
-    `💲 Valor: R$ ${produto.valor.toFixed(2)}\n\n` +
+    `👉  Valor: R$ ${produto.valor.toFixed(2)}\n\n` +
     '👉 Digite: /comprar sens7x-freefire'
   );
 });
@@ -268,14 +268,14 @@ bot.onText(/\/comprar (.+)/, async (msg, match) => {
       await bot.sendPhoto(chatId, produto.imagemUrl, {
         caption:
           `📦 ${produto.nome}\n\n` +
-          `💲 Valor: R$ ${valorFormatado}\n\n` +
+          `👉Valor: R$ ${valorFormatado}\n\n` +
           `${produto.descricao}\n\n` +
           '👇 Pague com Pix abaixo:'
       });
     } catch (e) {
       await bot.sendMessage(chatId,
         `📦 ${produto.nome}\n` +
-        `💲 Valor: R$ ${valorFormatado}\n\n` +
+        `👉Valor: R$ ${valorFormatado}\n\n` +
         `${produto.descricao}\n\n` +
         '👇 Pague com Pix abaixo:'
       );
@@ -284,9 +284,9 @@ bot.onText(/\/comprar (.+)/, async (msg, match) => {
     const qrCodeBuffer = Buffer.from(qrCodeBase64, 'base64');
     await bot.sendPhoto(chatId, qrCodeBuffer, {
       caption:
-        '📸 QR Code Pix ✅\n\n' +
-        '📋 Código Copia e Cola:\n\n' + pixCode + '\n\n' +
-        '🔗 Link de pagamento: ' + ticketUrl + '\n\n' +
+        'QR Code Pix ✅\n\n' +
+        'Código Copia e Cola:\n\n' + pixCode + '\n\n' +
+        '👉Link de pagamento: ' + ticketUrl + '\n\n' +
         '⏳ Após pagar, aguarde — envio automático! 🚀'
     });
 
