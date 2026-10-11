@@ -50,9 +50,27 @@ const PRODUTOS = {
                 "✅ Resultado já na primeira partida!\n\n" +
                 "Não fique pra trás, melhore seu jogo HOJE!\n" +
                 "👉 Garanta já o seu e suba de rank com muito mais facilidade! Vem comigo! 🚀\n\n" +
-                "📺 Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
+                "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
     imagemUrl: "https://files.catbox.moe/5eehlb.png",
     linkEntrega: "https://files.catbox.moe/5eehlb.png"
+  }
+  
+  const PRODUTOS = {
+  "nubank-editavel": {
+    id: "nubank-editavel",
+    nome: "NUBANK 100% EDITAVEL",
+    valor: 20.00,
+    descricao: "VENHA ADQUIRIR MELHOR APLICATIVO NUBANK 100%EDITAVEL\n\n" +
+                "gere comprovantes ,edite saldos , Editavel foto de perfil\n\n" +
+                "✅ comprovantes editavel\n" +
+                "✅ Funciona em qualquer android\n" +
+                "✅ FIX Bugs e testado aprovado por desenvolvedor profissional\n" +
+                "✅ Resultado rápido e precisão em buscas de dados fictícios\n\n" +
+                "Não fique pra trás, melhore suas vendas HOJE!\n" +
+                "👉 Garanta já o seu aplicativo APK PREMIUM ATUALIZADO🚀\n\n" +
+                "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
+    imagemUrl: "https://files.catbox.moe/6d2b14.jpeg",
+    linkEntrega: "https://files.catbox.moe/6d2b14.jpeg"
   }
 };
 
@@ -278,4 +296,4 @@ app.listen(PORT, async () => {
   console.log(`✅ Webhook Telegram: ${RENDER_URL}${WEBHOOK_PATH}`);
   console.log(`✅ Webhook Mercado Pago: ${RENDER_URL}/mercado-pago-webhook`);
   console.log('✅ SENS7X MAX — Bot pronto para uso! 🚀🔥');
-});
+});.
