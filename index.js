@@ -52,24 +52,22 @@ const PRODUTOS = {
                 "👉 Garanta já o seu e suba de rank com muito mais facilidade! Vem comigo! 🚀\n\n" +
                 "📺 Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
     imagemUrl: "https://files.catbox.moe/5eehlb.png",
-    linkEntrega: "https://www.mediafire.com/file/gpilqf0igtacjvh/Base_-_Banco_Inter_100%2525_Editavel.7z/file"
+    linkEntrega: "https://files.catbox.moe/6d2b14.jpeg"
   }
 };
 
 let pedidos = lerArquivo(PEDIDOS_ARQUIVO);
 
-// ========== FUNÇÃO: GERAR MENU FLUTUANTE ==========
-function gerarMenuFlutuante() {
+// ========== FUNÇÃO: GERAR TECLADO FIXO ==========
+function gerarTecladoFixo() {
   return {
-    inline_keyboard: [
-      [
-        { text: '📦 SENS7X FREE FIRE — R$ 5,00', callback_data: 'comprar_sens7x-freefire' }
-      ],
-      [
-        { text: '📺 Canal YouTube', callback_data: 'canal' },
-        { text: '💬 Suporte', callback_data: 'suporte' }
-      ]
-    ]
+    keyboard: [
+      ['🛒 Ver Produtos'],
+      ['📺 Canal YouTube', '💬 Suporte'],
+      ['📖 Sobre']
+    ],
+    resize_keyboard: true,
+    one_time_keyboard: false
   };
 }
 
@@ -127,9 +125,9 @@ app.post('/mercado-pago-webhook', async (req, res) => {
 
 app.get('/', (req, res) => res.send('✅ SENS7X MAX — Bot Online'));
 
-// ========== COMANDOS DO BOT ==========
+// ========== COMANDOS E MENSAGENS ==========
 
-// 👋 /start — Boas-vindas com menu flutuante
+// 👋 /start — Boas-vindas + Teclado Fixo
 bot.onText(/\/start/, async (msg) => {
   const chatId = msg.chat.id;
   
@@ -137,23 +135,28 @@ bot.onText(/\/start/, async (msg) => {
     'Bem-vindo(a) à SENS7X MAX!\n\n' +
     'É um prazer enorme receber você aqui! 🎉 Você acabou de chegar no lugar certo pra turbinar sua jogabilidade no Free Fire e alcançar resultados que antes pareciam impossíveis.\n\n' +
     'Aqui na SENS7X MAX nós oferecemos os melhores packs de sensibilidade, cuidadosamente calibrados e testados para você dar muito mais tiros na cabeça, ter movimentos mais precisos e dominar todas as suas partidas!\n\n' +
-    '👇 Escolha uma opção abaixo:';
+    'Use os botões abaixo ou digite /loja para ver nossos produtos!';
   
   await bot.sendMessage(chatId, boasVindas, {
-    reply_markup: gerarMenuFlutuante()
+    reply_markup: gerarTecladoFixo()
   });
 });
 
-// 📋 /loja — Mostra menu de produtos
-bot.onText(/\/loja/, async (msg) => {
+// 🛒 Botão: Ver Produtos
+bot.onText(/🛒 Ver Produtos/, async (msg) => {
   const chatId = msg.chat.id;
-  await bot.sendMessage(chatId, '🛒 NOSSA LOJA — Escolha abaixo:', {
-    reply_markup: gerarMenuFlutuante()
-  });
+  const produto = PRODUTOS['sens7x-freefire'];
+  
+  await bot.sendMessage(chatId,
+    `📦 ${produto.nome}\n` +
+    `💲 Valor: R$ ${produto.valor.toFixed(2)}\n\n` +
+    `${produto.descricao}\n\n` +
+    '👉 Digite: /comprar sens7x-freefire'
+  );
 });
 
-// 📺 /canal
-bot.onText(/\/canal/, async (msg) => {
+// 📺 Botão: Canal YouTube
+bot.onText(/📺 Canal YouTube/, async (msg) => {
   await bot.sendMessage(msg.chat.id,
     '📺 Nosso Canal no YouTube:\n\n' +
     'https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7\n\n' +
@@ -161,8 +164,8 @@ bot.onText(/\/canal/, async (msg) => {
   );
 });
 
-// ❓ /suporte
-bot.onText(/\/suporte/, async (msg) => {
+// 💬 Botão: Suporte
+bot.onText(/💬 Suporte/, async (msg) => {
   await bot.sendMessage(msg.chat.id,
     '📞 Suporte — SENS7X MAX\n\n' +
     '📺 Canal YouTube: @fael_100k_yt\n' +
@@ -171,113 +174,109 @@ bot.onText(/\/suporte/, async (msg) => {
   );
 });
 
-// 📊 /status
-bot.onText(/\/status/, async (msg) => {
+// 📖 Botão: Sobre
+bot.onText(/📖 Sobre/, async (msg) => {
   const vendas = Object.values(pedidos).filter(p => p.entregue).length;
   await bot.sendMessage(msg.chat.id,
-    '✅ SENS7X MAX — Bot ONLINE\n' +
-    '💳 Mercado Pago: Conectado\n' +
-    '📦 Produtos cadastrados: ' + Object.keys(PRODUTOS).length + '\n' +
+    '✅ SENS7X MAX\n\n' +
+    '🎯 Melhores packs de sensibilidade para Free Fire\n' +
+    '📦 Produtos: ' + Object.keys(PRODUTOS).length + '\n' +
     '💰 Vendas realizadas: ' + vendas + '\n' +
-    '📺 Canal: @fael_100k_yt'
+    '📺 Canal: @fael_100k_yt\n\n' +
+    'Boa sorte nas partidas! 🎯🔥'
   );
 });
 
-// ========== CLIQUES NOS BOTÕES ==========
-bot.on('callback_query', async (query) => {
-  const chatId = query.message.chat.id;
-  const data = query.data;
+// 📋 /loja — Ver produtos
+bot.onText(/\/loja/, async (msg) => {
+  const chatId = msg.chat.id;
+  const produto = PRODUTOS['sens7x-freefire'];
   
-  await bot.answerCallbackQuery(query.id);
+  await bot.sendMessage(chatId,
+    '🛒 NOSSA LOJA:\n\n' +
+    `📦 ${produto.nome}\n` +
+    `💲 Valor: R$ ${produto.valor.toFixed(2)}\n\n` +
+    '👉 Digite: /comprar sens7x-freefire'
+  );
+});
+
+// 🛒 /comprar — Comprar produto
+bot.onText(/\/comprar (.+)/, async (msg, match) => {
+  const chatId = msg.chat.id;
+  const codigo = match[1].trim();
+  const produto = PRODUTOS[codigo];
   
-  if (data.startsWith('comprar_')) {
-    const codigo = data.replace('comprar_', '');
-    const produto = PRODUTOS[codigo];
-    
-    if (!produto) {
-      await bot.sendMessage(chatId, '⚠️ Produto não encontrado!');
-      return;
+  if (!produto) {
+    await bot.sendMessage(chatId,
+      '⚠️ Produto não encontrado!\n\n' +
+      'Digite /loja para ver os produtos disponíveis.'
+    );
+    return;
+  }
+  
+  const pedidoId = `pedido_${Date.now()}_${Math.random().toString(36).substr(2, 8)}`;
+  const valorFormatado = produto.valor.toFixed(2);
+
+  try {
+    const payment = await new Payment(mpClient).create({
+      body: {
+        transaction_amount: produto.valor,
+        description: produto.nome,
+        payment_method_id: 'pix',
+        external_reference: pedidoId,
+        notification_url: `${RENDER_URL}/mercado-pago-webhook`,
+        payer: { email: 'cliente@exemplo.com' }
+      }
+    });
+
+    const pixCode = payment.point_of_interaction?.transaction_data?.qr_code;
+    const qrCodeBase64 = payment.point_of_interaction?.transaction_data?.qr_code_base64;
+    const ticketUrl = payment.point_of_interaction?.transaction_data?.ticket_url;
+
+    if (!pixCode || !qrCodeBase64) {
+      throw new Error('Mercado Pago não retornou dados do Pix');
     }
-    
-    const pedidoId = `pedido_${Date.now()}_${Math.random().toString(36).substr(2, 8)}`;
-    const valorFormatado = produto.valor.toFixed(2);
+
+    pedidos[pedidoId] = {
+      chatId,
+      produtoNome: produto.nome,
+      linkEntrega: produto.linkEntrega,
+      entregue: false,
+      paymentId: payment.id
+    };
+    salvarArquivo(PEDIDOS_ARQUIVO, pedidos);
 
     try {
-      const payment = await new Payment(mpClient).create({
-        body: {
-          transaction_amount: produto.valor,
-          description: produto.nome,
-          payment_method_id: 'pix',
-          external_reference: pedidoId,
-          notification_url: `${RENDER_URL}/mercado-pago-webhook`,
-          payer: { email: 'cliente@exemplo.com' }
-        }
-      });
-
-      const pixCode = payment.point_of_interaction?.transaction_data?.qr_code;
-      const qrCodeBase64 = payment.point_of_interaction?.transaction_data?.qr_code_base64;
-      const ticketUrl = payment.point_of_interaction?.transaction_data?.ticket_url;
-
-      if (!pixCode || !qrCodeBase64) {
-        throw new Error('Mercado Pago não retornou dados do Pix');
-      }
-
-      pedidos[pedidoId] = {
-        chatId,
-        produtoNome: produto.nome,
-        linkEntrega: produto.linkEntrega,
-        entregue: false,
-        paymentId: payment.id
-      };
-      salvarArquivo(PEDIDOS_ARQUIVO, pedidos);
-
-      try {
-        await bot.sendPhoto(chatId, produto.imagemUrl, {
-          caption:
-            `📦 ${produto.nome}\n\n` +
-            `💲 Valor: R$ ${valorFormatado}\n\n` +
-            `${produto.descricao}\n\n` +
-            '👇 Pague com Pix abaixo:'
-        });
-      } catch (e) {
-        await bot.sendMessage(chatId,
-          `📦 ${produto.nome}\n` +
+      await bot.sendPhoto(chatId, produto.imagemUrl, {
+        caption:
+          `📦 ${produto.nome}\n\n` +
           `💲 Valor: R$ ${valorFormatado}\n\n` +
           `${produto.descricao}\n\n` +
           '👇 Pague com Pix abaixo:'
-        );
-      }
-
-      const qrCodeBuffer = Buffer.from(qrCodeBase64, 'base64');
-      await bot.sendPhoto(chatId, qrCodeBuffer, {
-        caption:
-          '📸 QR Code Pix ✅\n\n' +
-          '📋 Código Copia e Cola:\n\n' + pixCode + '\n\n' +
-          '🔗 Link de pagamento: ' + ticketUrl + '\n\n' +
-          '⏳ Após pagar, aguarde — envio automático! 🚀'
       });
-
-      console.log(`✅ Pedido criado: ${pedidoId} — ${produto.nome}`);
-
-    } catch (erro) {
-      console.error('❌ Erro:', erro.message);
-      await bot.sendMessage(chatId, '⚠️ Erro ao gerar pagamento. Tente novamente.');
+    } catch (e) {
+      await bot.sendMessage(chatId,
+        `📦 ${produto.nome}\n` +
+        `💲 Valor: R$ ${valorFormatado}\n\n` +
+        `${produto.descricao}\n\n` +
+        '👇 Pague com Pix abaixo:'
+      );
     }
-  }
-  else if (data === 'canal') {
-    await bot.sendMessage(chatId,
-      '📺 Nosso Canal no YouTube:\n\n' +
-      'https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7\n\n' +
-      'Se inscreva e acompanhe nossas novidades! 🎬🔥'
-    );
-  }
-  else if (data === 'suporte') {
-    await bot.sendMessage(chatId,
-      '📞 Suporte — SENS7X MAX\n\n' +
-      '📺 Canal YouTube: @fael_100k_yt\n' +
-      '💬 Dúvidas? É só mandar mensagem!\n\n' +
-      'Boa sorte nas partidas! 🎯🔥'
-    );
+
+    const qrCodeBuffer = Buffer.from(qrCodeBase64, 'base64');
+    await bot.sendPhoto(chatId, qrCodeBuffer, {
+      caption:
+        '📸 QR Code Pix ✅\n\n' +
+        '📋 Código Copia e Cola:\n\n' + pixCode + '\n\n' +
+        '🔗 Link de pagamento: ' + ticketUrl + '\n\n' +
+        '⏳ Após pagar, aguarde — envio automático! 🚀'
+    });
+
+    console.log(`✅ Pedido criado: ${pedidoId} — ${produto.nome}`);
+
+  } catch (erro) {
+    console.error('❌ Erro:', erro.message);
+    await bot.sendMessage(chatId, '⚠️ Erro ao gerar pagamento. Tente novamente.');
   }
 });
 
