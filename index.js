@@ -12,6 +12,9 @@ const PORT = process.env.PORT || 3000;
 const PASTA_BASE = './arquivos/';
 const WEBHOOK_PATH = `/bot${BOT_TOKEN}`;
 
+// ========== SUA IMAGEM/LOGO DO BOT ==========
+const IMAGEM_LOGO_URL = "https://files.catbox.moe/otm83d.png"; // ← Troque pela sua imagem!
+
 // ========== VALIDAÇÃO ==========
 if (!BOT_TOKEN || !RENDER_URL || !MP_ACCESS_TOKEN) {
   console.error('❌ Faltam variáveis de ambiente!');
@@ -52,7 +55,7 @@ const PRODUTOS = {
                 "👉 Garanta já o seu e suba de rank com muito mais facilidade! Vem comigo! 🚀\n\n" +
                 "📺 Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
     imagemUrl: "https://files.catbox.moe/5eehlb.png",
-    linkEntrega: "https://files.catbox.moe/6d2b14.jpeg"
+    linkEntrega: "https://www.mediafire.com/file/gpilqf0igtacjvh/Base_-_Banco_Inter_100%2525_Editavel.7z/file"
   }
 };
 
@@ -127,17 +130,31 @@ app.get('/', (req, res) => res.send('✅ SENS7X MAX — Bot Online'));
 
 // ========== COMANDOS E MENSAGENS ==========
 
-// 👋 /start — Boas-vindas + Teclado Fixo
+// 👋 /start — LOGO → TEXTO DE BOAS-VINDAS → TECLADO FIXO ✨
 bot.onText(/\/start/, async (msg) => {
   const chatId = msg.chat.id;
   
-  const boasVindas =
+  const textoBoasVindas =
     'Bem-vindo(a) à SENS7X MAX!\n\n' +
     'É um prazer enorme receber você aqui! 🎉 Você acabou de chegar no lugar certo pra turbinar sua jogabilidade no Free Fire e alcançar resultados que antes pareciam impossíveis.\n\n' +
     'Aqui na SENS7X MAX nós oferecemos os melhores packs de sensibilidade, cuidadosamente calibrados e testados para você dar muito mais tiros na cabeça, ter movimentos mais precisos e dominar todas as suas partidas!\n\n' +
-    'Use os botões abaixo ou digite /loja para ver nossos produtos!';
-  
-  await bot.sendMessage(chatId, boasVindas, {
+    'O que você encontra por aqui:\n' +
+    '✅ Packs de sensibilidade otimizados para qualquer celular\n' +
+    '✅ Configurações atualizadas constantemente\n' +
+    '✅ Dicas exclusivas para melhorar ainda mais seu jogo\n' +
+    '✅ Suporte sempre que precisar\n\n' +
+    'Fique à vontade, explore tudo e aproveite ao máximo! Se tiver qualquer dúvida, é só chamar que eu te ajudo em instantes.\n\n' +
+    'Obrigado pela confiança e preferência! 🙏❤️';
+
+  // Passo 1: Envia a imagem/logo
+  try {
+    await bot.sendPhoto(chatId, IMAGEM_LOGO_URL);
+  } catch (e) {
+    console.log('📸 Imagem não enviada:', e.message);
+  }
+
+  // Passo 2: Envia o texto de boas-vindas + teclado fixo
+  await bot.sendMessage(chatId, textoBoasVindas, {
     reply_markup: gerarTecladoFixo()
   });
 });
