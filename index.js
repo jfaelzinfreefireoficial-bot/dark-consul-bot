@@ -13,7 +13,7 @@ const PASTA_BASE = './arquivos/';
 const WEBHOOK_PATH = `/bot${BOT_TOKEN}`;
 
 // ========== SUA IMAGEM/LOGO DO BOT ==========
-const IMAGEM_LOGO_URL = "https://files.catbox.moe/otm83d.png"; // ← Troque pela sua imagem!
+const IMAGEM_LOGO_URL = "https://files.catbox.moe/otm83d.png"; // ✅ Seu link correto!
 
 // ========== VALIDAÇÃO ==========
 if (!BOT_TOKEN || !RENDER_URL || !MP_ACCESS_TOKEN) {
@@ -128,9 +128,7 @@ app.post('/mercado-pago-webhook', async (req, res) => {
 
 app.get('/', (req, res) => res.send('✅ SENS7X MAX — Bot Online'));
 
-// ========== COMANDOS E MENSAGENS ==========
-
-// 👋 /start — LOGO → TEXTO DE BOAS-VINDAS → TECLADO FIXO ✨
+// ========== COMANDO /start — CORRIGIDO ✅ ==========
 bot.onText(/\/start/, async (msg) => {
   const chatId = msg.chat.id;
   
@@ -146,17 +144,20 @@ bot.onText(/\/start/, async (msg) => {
     'Fique à vontade, explore tudo e aproveite ao máximo! Se tiver qualquer dúvida, é só chamar que eu te ajudo em instantes.\n\n' +
     'Obrigado pela confiança e preferência! 🙏❤️';
 
-  // Passo 1: Envia a imagem/logo
+  // ✅ ENVIA IMAGEM COM LEGENDA VAZIA PRIMEIRO
   try {
-    await bot.sendPhoto(chatId, IMAGEM_LOGO_URL);
+    await bot.sendPhoto(chatId, IMAGEM_LOGO_URL, { caption: '' });
+    console.log('✅ Imagem do bot enviada com sucesso!');
   } catch (e) {
-    console.log('📸 Imagem não enviada:', e.message);
+    console.log('⚠️ Não foi possível enviar a imagem:', e.message);
   }
 
-  // Passo 2: Envia o texto de boas-vindas + teclado fixo
-  await bot.sendMessage(chatId, textoBoasVindas, {
-    reply_markup: gerarTecladoFixo()
-  });
+  // ✅ DEPOIS ENVIA O TEXTO + TECLADO
+  setTimeout(async () => {
+    await bot.sendMessage(chatId, textoBoasVindas, {
+      reply_markup: gerarTecladoFixo()
+    });
+  }, 300); // Pequeno delay para garantir ordem correta
 });
 
 // 🛒 Botão: Ver Produtos
