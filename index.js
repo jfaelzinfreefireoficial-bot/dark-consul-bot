@@ -7,7 +7,6 @@ const { MercadoPagoConfig, Payment } = require('mercadopago');
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const RENDER_URL = process.env.RENDER_EXTERNAL_URL;
 const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN;
-const MP_WEBHOOK_SECRET = process.env.MP_WEBHOOK_SECRET;
 const ADMIN_CHAT_ID = process.env.ADMIN_CHAT_ID;
 const PORT = process.env.PORT || 3000;
 const PASTA_BASE = './arquivos/';
@@ -15,8 +14,9 @@ const WEBHOOK_PATH = `/bot${BOT_TOKEN}`;
 
 // ========== INICIALIZAÇÃO ==========
 if (!fs.existsSync(PASTA_BASE)) fs.mkdirSync(PASTA_BASE, { recursive: true });
+
 const mpClient = new MercadoPagoConfig({ accessToken: MP_ACCESS_TOKEN });
-const bot = new TelegramBot(BOT_TOKEN, { webHook: true });
+const bot = new TelegramBot(BOT_TOKEN, { webHook: { port: PORT, host: '0.0.0.0' } });
 const app = express();
 app.use(express.json());
 
@@ -37,7 +37,7 @@ let produto = lerArquivo(PRODUTO_ARQUIVO) || {
   imagemUrl: 'https://files.catbox.moe/6d2b14.jpeg',
   nome: 'Sens7x FreeFire',
   valor: 5.00,
-  descricao: 'tenha melhor calibração de Mira no Free Fire',
+  descricao: 'Tenha melhor calibração de Mira no Free Fire',
   linkEntrega: 'https://files.catbox.moe/6d2b14.jpeg'
 };
 let pedidos = lerArquivo(PEDIDOS_ARQUIVO);
@@ -48,7 +48,7 @@ app.post(WEBHOOK_PATH, (req, res) => {
   res.sendStatus(200);
 });
 
-// 📩 WEBHOOK — RECEBE AVISO DO MERCADO PAGO QUANDO PAGAREM
+// 📩 WEBHOOK — RECEBE AVISO DO MERCADO PAGO
 app.post('/mercado-pago-webhook', async (req, res) => {
   try {
     const { type, data } = req.body;
@@ -57,12 +57,10 @@ app.post('/mercado-pago-webhook', async (req, res) => {
       const paymentId = data.id;
       console.log(`📩 Notificação recebida — Pagamento ID: ${paymentId}`);
       
-      // Consulta detalhes do pagamento
       const payment = await new Payment(mpClient).get({ id: paymentId });
       const pedidoId = payment.external_reference;
       const compradorChatId = pedidos[pedidoId]?.chatId;
       
-      // ✅ Pagamento aprovado!
       if (payment.status === 'approved' && compradorChatId && !pedidos[pedidoId]?.entregue) {
         await bot.sendMessage(compradorChatId,
           '✅ *Pagamento confirmado!*\n\n' +
@@ -73,7 +71,6 @@ app.post('/mercado-pago-webhook', async (req, res) => {
           { parse_mode: 'Markdown' }
         );
         
-        // 🔔 AVISA VOCÊ (DONO) DA VENDA
         if (ADMIN_CHAT_ID) {
           await bot.sendMessage(ADMIN_CHAT_ID,
             '💰 *VENDA REALIZADA!*\n\n' +
@@ -112,14 +109,13 @@ bot.onText(/\/start/, async (msg) => {
   });
 });
 
-// 🛒 /PRODUTO — GERA PAGAMENTO AUTOMATICAMENTE NO MERCADO PAGO
+// 🛒 /PRODUTO — GERA PAGAMENTO AUTOMATICAMENTE
 bot.onText(/\/produto/, async (msg) => {
   const chatId = msg.chat.id;
   const pedidoId = `pedido_${Date.now()}_${Math.random().toString(36).substr(2, 8)}`;
   const valorFormatado = produto.valor.toFixed(2);
 
   try {
-    // 🔹 Cria pagamento PIX no Mercado Pago
     const payment = await new Payment(mpClient).create({
       body: {
         transaction_amount: produto.valor,
@@ -127,11 +123,10 @@ bot.onText(/\/produto/, async (msg) => {
         payment_method_id: 'pix',
         external_reference: pedidoId,
         notification_url: `${RENDER_URL}/mercado-pago-webhook`,
-        payer: { email: 'cliente@exemplo.com' } // pode deixar genérico
+        payer: { email: 'cliente@exemplo.com' }
       }
     });
 
-    // Extrai dados que a API retorna
     const pixCode = payment.point_of_interaction?.transaction_data?.qr_code;
     const qrCodeBase64 = payment.point_of_interaction?.transaction_data?.qr_code_base64;
     const ticketUrl = payment.point_of_interaction?.transaction_data?.ticket_url;
@@ -140,11 +135,10 @@ bot.onText(/\/produto/, async (msg) => {
       throw new Error('Mercado Pago não retornou dados do Pix');
     }
 
-    // Salva pedido
     pedidos[pedidoId] = { chatId, pago: false, entregue: false, paymentId: payment.id };
     salvarArquivo(PEDIDOS_ARQUIVO, pedidos);
 
-    // 📦 Mostra dados do produto
+    // 📦 Dados do produto
     await bot.sendPhoto(chatId, produto.imagemUrl, {
       caption:
         `📦 *${produto.nome}*\n\n` +
@@ -154,15 +148,15 @@ bot.onText(/\/produto/, async (msg) => {
       parse_mode: 'Markdown'
     });
 
-    // 📸 Envia QR Code gerado automaticamente pelo Mercado Pago
+    // 📸 QR Code — CORRIGIDO ✅
     const qrCodeBuffer = Buffer.from(qrCodeBase64, 'base64');
     await bot.sendPhoto(chatId, qrCodeBuffer, {
       caption:
-        '📸 *QR Code Pix — Gerado automaticamente!*\n\n' +
-        'Ou copie o código abaixo:\n\n' +
-        '`' + pixCode + '`\n\n' +
-        `👉 Ou pague pelo link: ${ticketUrl}\n\n` +
-        '⏳ Após o pagamento, aguarde alguns instantes — eu envio seu produto automaticamente! ✅',
+        '📸 *QR Code Pix* ✅\n\n' +
+        '📋 Código Copia e Cola:\n\n' +
+        pixCode + '\n\n' +
+        `🔗 Link de pagamento: ${ticketUrl}\n\n` +
+        '⏳ Após pagar, aguarde — eu envio seu produto automaticamente! 🚀',
       parse_mode: 'Markdown'
     });
 
@@ -177,7 +171,7 @@ bot.onText(/\/produto/, async (msg) => {
 bot.onText(/Informações sobre BOT/, (msg) => {
   bot.sendMessage(msg.chat.id,
     'Olá! 😊\n\n' +
-    'Sou assistente virtual criado e projetado por *Faelzin Vendas*.\n\n' +
+    'Sou assistente virtual criado por *Faelzin Vendas*.\n\n' +
     'Atendo 24h, sem fila de espera. Pagamentos automáticos via Pix — confirmação instantânea e entrega automática do produto! 🚀',
     { parse_mode: 'Markdown' }
   );
@@ -188,7 +182,7 @@ bot.onText(/\/suporte/, (msg) => {
     '📞 Suporte — Faelzin Vendas\n\n' +
     'Precisando de ajuda com produtos ou serviços?\n\n' +
     '📷 Instagram oficial:\n' +
-    '@faelzin_Bots_Oficial\n\n' +
+    '@faelzin_100k\n\n' +
     'Atendimento direto com o dono! 😊'
   );
 });
@@ -199,22 +193,16 @@ bot.onText(/\/status/, (msg) => {
   bot.sendMessage(msg.chat.id,
     '✅ Bot ONLINE — Webhook ativo\n' +
     '💳 Mercado Pago: Conectado\n' +
-    '📂 Pasta: ' + PASTA_BASE + '\n' +
     '📊 Vendas realizadas: ' + vendas + '\n' +
     '📁 Arquivos: ' + qtd
   );
 });
 
 // ========== INICIAR SERVIDOR ==========
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`✅ Servidor rodando na porta ${PORT}`);
+  await bot.setWebHook(`${RENDER_URL}${WEBHOOK_PATH}`);
+  console.log(`✅ Webhook Telegram: ${RENDER_URL}${WEBHOOK_PATH}`);
+  console.log(`✅ Webhook MP: ${RENDER_URL}/mercado-pago-webhook`);
+  console.log('✅ Bot pronto para uso! 🚀');
 });
-
-async function setWebhook() {
-  if (!RENDER_URL) return console.log('⚠️ Defina RENDER_EXTERNAL_URL nas variáveis');
-  const webhookUrl = `${RENDER_URL}${WEBHOOK_PATH}`;
-  await bot.setWebHook(webhookUrl);
-  console.log('✅ Webhook Telegram:', webhookUrl);
-  console.log('✅ Webhook MP:', `${RENDER_URL}/mercado-pago-webhook`);
-}
-setWebhook();
