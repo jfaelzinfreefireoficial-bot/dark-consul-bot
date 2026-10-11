@@ -12,8 +12,8 @@ const PORT = process.env.PORT || 3000;
 const PASTA_BASE = './arquivos/';
 const WEBHOOK_PATH = `/bot${BOT_TOKEN}`;
 
-// ========== SUA IMAGEM/LOGO DO BOT ==========
-const IMAGEM_LOGO_URL = "https://files.catbox.moe/otm83d.png"; // ✅ Seu link correto!
+// ========== SUA IMAGEM/LOGO DO BOT — LINK ATUALIZADO ✅ ==========
+const IMAGEM_LOGO_URL = "https://i.postimg.cc/tJGcPjPQ/1791726554389.png";
 
 // ========== VALIDAÇÃO ==========
 if (!BOT_TOKEN || !RENDER_URL || !MP_ACCESS_TOKEN) {
@@ -55,7 +55,7 @@ const PRODUTOS = {
                 "👉 Garanta já o seu e suba de rank com muito mais facilidade! Vem comigo! 🚀\n\n" +
                 "📺 Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
     imagemUrl: "https://files.catbox.moe/5eehlb.png",
-    linkEntrega: "https://www.mediafire.com/file/gpilqf0igtacjvh/Base_-_Banco_Inter_100%2525_Editavel.7z/file"
+    linkEntrega: "https://www.mediafire.com/file/sjnmojlnhi0kga5/REAL_SENS7X_PRO_-_FREE_FIRE_CLIENTE.7z/file"
   }
 };
 
@@ -128,7 +128,7 @@ app.post('/mercado-pago-webhook', async (req, res) => {
 
 app.get('/', (req, res) => res.send('✅ SENS7X MAX — Bot Online'));
 
-// ========== COMANDO /start — CORRIGIDO ✅ ==========
+// ========== COMANDO /start — COM NOVO LINK ✅ ==========
 bot.onText(/\/start/, async (msg) => {
   const chatId = msg.chat.id;
   
@@ -144,20 +144,20 @@ bot.onText(/\/start/, async (msg) => {
     'Fique à vontade, explore tudo e aproveite ao máximo! Se tiver qualquer dúvida, é só chamar que eu te ajudo em instantes.\n\n' +
     'Obrigado pela confiança e preferência! 🙏❤️';
 
-  // ✅ ENVIA IMAGEM COM LEGENDA VAZIA PRIMEIRO
+  // ✅ Envia a imagem
   try {
     await bot.sendPhoto(chatId, IMAGEM_LOGO_URL, { caption: '' });
     console.log('✅ Imagem do bot enviada com sucesso!');
   } catch (e) {
-    console.log('⚠️ Não foi possível enviar a imagem:', e.message);
+    console.log('⚠️ Não foi possível carregar a imagem:', e.message);
   }
 
-  // ✅ DEPOIS ENVIA O TEXTO + TECLADO
+  // ✅ Envia o texto de boas-vindas + teclado
   setTimeout(async () => {
     await bot.sendMessage(chatId, textoBoasVindas, {
       reply_markup: gerarTecladoFixo()
     });
-  }, 300); // Pequeno delay para garantir ordem correta
+  }, 500);
 });
 
 // 🛒 Botão: Ver Produtos
