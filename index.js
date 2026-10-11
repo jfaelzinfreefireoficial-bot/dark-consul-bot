@@ -36,7 +36,7 @@ function salvarArquivo(caminho, dados) {
   fs.writeFileSync(caminho, JSON.stringify(dados, null, 2));
 }
 
-// ========== SUA LOJA — PRODUTOS ==========
+// ========== SEU PRODUTO ==========
 const PRODUTOS = {
   "sens7x-freefire": {
     id: "sens7x-freefire",
@@ -53,38 +53,24 @@ const PRODUTOS = {
                 "📺 Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
     imagemUrl: "https://files.catbox.moe/5eehlb.png",
     linkEntrega: "https://www.mediafire.com/file/gpilqf0igtacjvh/Base_-_Banco_Inter_100%2525_Editavel.7z/file"
-  },
-  "produto-dois": {
-    id: "produto-dois",
-    nome: "NOME DO PRODUTO 2",
-    valor: 10.00,
-    descricao: "Descrição do seu segundo produto aqui.\n\n" +
-                "✅ Ponto forte 1\n" +
-                "✅ Ponto forte 2\n" +
-                "✅ Ponto forte 3\n\n" +
-                "Adquira já e melhore ainda mais seu jogo! 🚀",
-    imagemUrl: "https://files.catbox.moe/6d2b14.jpeg",
-    linkEntrega: "https://www.mediafire.com/file/kfl3oyqum2eicty/MediaFire_-_Getting_Started.pdf/file"
-  },
-  
+  }
 };
 
 let pedidos = lerArquivo(PEDIDOS_ARQUIVO);
 
-// ========== FUNÇÃO: GERAR TECLADO DE PRODUTOS ==========
-function gerarTecladoProdutos() {
-  const botoes = [];
-  for (const [chave, prod] of Object.entries(PRODUTOS)) {
-    botoes.push([{
-      text: `📦 ${prod.nome} — R$ ${prod.valor.toFixed(2)}`,
-      callback_data: `comprar_${chave}`
-    }]);
-  }
-  botoes.push([
-    { text: '📺 Canal YouTube', callback_data: 'canal' },
-    { text: '💬 Suporte', callback_data: 'suporte' }
-  ]);
-  return { inline_keyboard: botoes };
+// ========== FUNÇÃO: GERAR MENU FLUTUANTE ==========
+function gerarMenuFlutuante() {
+  return {
+    inline_keyboard: [
+      [
+        { text: '📦 SENS7X FREE FIRE — R$ 5,00', callback_data: 'comprar_sens7x-freefire' }
+      ],
+      [
+        { text: '📺 Canal YouTube', callback_data: 'canal' },
+        { text: '💬 Suporte', callback_data: 'suporte' }
+      ]
+    ]
+  };
 }
 
 // ========== ROTAS DO SERVIDOR ==========
@@ -143,7 +129,7 @@ app.get('/', (req, res) => res.send('✅ SENS7X MAX — Bot Online'));
 
 // ========== COMANDOS DO BOT ==========
 
-// 👋 /start — Boas-vindas com teclado
+// 👋 /start — Boas-vindas com menu flutuante
 bot.onText(/\/start/, async (msg) => {
   const chatId = msg.chat.id;
   
@@ -151,18 +137,18 @@ bot.onText(/\/start/, async (msg) => {
     'Bem-vindo(a) à SENS7X MAX!\n\n' +
     'É um prazer enorme receber você aqui! 🎉 Você acabou de chegar no lugar certo pra turbinar sua jogabilidade no Free Fire e alcançar resultados que antes pareciam impossíveis.\n\n' +
     'Aqui na SENS7X MAX nós oferecemos os melhores packs de sensibilidade, cuidadosamente calibrados e testados para você dar muito mais tiros na cabeça, ter movimentos mais precisos e dominar todas as suas partidas!\n\n' +
-    '👇 Escolha abaixo ou digite /loja para ver nossos produtos!';
+    '👇 Escolha uma opção abaixo:';
   
   await bot.sendMessage(chatId, boasVindas, {
-    reply_markup: gerarTecladoProdutos()
+    reply_markup: gerarMenuFlutuante()
   });
 });
 
-// 📋 /loja — Mostra produtos com botões
+// 📋 /loja — Mostra menu de produtos
 bot.onText(/\/loja/, async (msg) => {
   const chatId = msg.chat.id;
-  await bot.sendMessage(chatId, '🛒 NOSSA LOJA — Escolha um produto abaixo:', {
-    reply_markup: gerarTecladoProdutos()
+  await bot.sendMessage(chatId, '🛒 NOSSA LOJA — Escolha abaixo:', {
+    reply_markup: gerarMenuFlutuante()
   });
 });
 
@@ -197,12 +183,11 @@ bot.onText(/\/status/, async (msg) => {
   );
 });
 
-// ========== TRATAMENTO DE CLIQUES NOS BOTÕES ==========
+// ========== CLIQUES NOS BOTÕES ==========
 bot.on('callback_query', async (query) => {
   const chatId = query.message.chat.id;
   const data = query.data;
   
-  // Responde ao clique (fecha o "carregando" no botão)
   await bot.answerCallbackQuery(query.id);
   
   if (data.startsWith('comprar_')) {
