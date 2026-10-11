@@ -71,8 +71,7 @@ const PRODUTOS = {
                 "👉 Garanta já o seu aplicativo Inter Banco simulador com muito mais facilidade! Vem comigo! 🚀\n\n" +
                 "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
     imagemUrl: "https://i.postimg.cc/0Q7zZY6r/download-(1).png",
-    linkEntrega: "https://www.mediafire.com/file/gpilqf0igtacjvh/Base_-_Banco_Inter_100%2525_Editavel.7z/file"
-  }
+    linkEntrega: "https://www.mediafire.com/file/gpilqf0igtacjvh/Base_-_Banco_Inter_100%2525_Editavel.7z/file
 };
 
 let pedidos = lerArquivo(PEDIDOS_ARQUIVO);
