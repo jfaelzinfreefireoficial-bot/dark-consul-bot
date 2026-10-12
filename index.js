@@ -12,12 +12,12 @@ const PORT = process.env.PORT || 3000;
 const PASTA_BASE = './arquivos/';
 const WEBHOOK_PATH = `/bot${BOT_TOKEN}`;
 
-// ========== IMAGEM/LOGO DO BOT ==========
+// ========== SUA IMAGEM/LOGO DO BOT ✅ ==========
 const IMAGEM_LOGO_URL = "https://i.postimg.cc/RZxcB0mF/1791726554389.jpg";
 
 // ========== VALIDAÇÃO ==========
 if (!BOT_TOKEN || !RENDER_URL || !MP_ACCESS_TOKEN) {
-  console.error('⚠️ Faltam variáveis de ambiente!');
+  console.error('❌ Faltam variáveis de ambiente!');
   process.exit(1);
 }
 
@@ -39,7 +39,7 @@ function salvarArquivo(caminho, dados) {
   fs.writeFileSync(caminho, JSON.stringify(dados, null, 2));
 }
 
-// ========== SEUS PRODUTOS ==========
+// ========== SEUS PRODUTOS ✅ ==========
 const PRODUTOS = {
   "sens7x-freefire": {
     id: "sens7x-freefire",
@@ -47,28 +47,28 @@ const PRODUTOS = {
     valor: 5.00,
     descricao: "VENHA ADQUIRIR O MELHOR PACK DE SENSIBILIDADE FREE FIRE!\n\n" +
                 "Quer dar aquele salto de qualidade nas suas partidas? Esse pack foi testado e ajustado pra você acertar muito mais tiros na cabeça!\n\n" +
-                "👉 Sensibilidade completa\n" +
-                "👉 Funciona em qualquer celular\n" +
-                "👉 Mais precisão e menos tiros perdidos\n" +
-                "👉 Resultado já na primeira partida!\n\n" +
+                "✅ Sensibilidade completa\n" +
+                "✅ Funciona em qualquer celular\n" +
+                "✅ Mais precisão e menos tiros perdidos\n" +
+                "✅ Resultado já na primeira partida!\n\n" +
                 "Não fique pra trás, melhore seu jogo HOJE!\n" +
-                "👉 Garanta já o seu e suba de rank com muito mais facilidade! Vem comigo!\n\n" +
+                "👉 Garanta já o seu e suba de rank com muito mais facilidade! Vem comigo! 🚀\n\n" +
                 "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
     imagemUrl: "https://i.postimg.cc/TwBc5qzw/1791720026046.jpg",
     linkEntrega: "https://www.mediafire.com/file/sjnmojlnhi0kga5/REAL_SENS7X_PRO_-_FREE_FIRE_CLIENTE.7z/file"
   },
-  "inter-editavel": {
-    id: "inter-editavel",
-    nome: "inter-editavel",
+  "jogo-gg": {
+    id: "jogo-gg",
+    nome: "jogo-gg",
     valor: 5.00,
-    descricao: "VENHA ADQUIRIR O MELHOR APLICATIVO BANCO INTER EDITÁVEL COMPLETO\n\n" +
-                "Lembrando não me responsabilizo por uso de forma errado, fique ciente de seus atos!\n\n" +
-                "👉 Simulador\n" +
-                "👉 Pode compartilhar com diversas plataformas e amigos\n" +
-                "👉 Perfil, foto, nome 100% editáveis\n" +
-                "👉 GG\n\n" +
+    descricao: "VENHA ADQUIRIR O MELHOR APLICATIVO EDITÁVEL COMPLETO\n\n" +
+                "Lembrando não me responsabilizo por uso de forma errado , fique ciente de seus atos!\n\n" +
+                "✅ Simulador\n" +
+                "✅ pode compartilhar com diversas plataformas e amigos\n" +
+                "✅ Perfil , foto , nome 100% editáveis\n" +
+                "✅ GG\n\n" +
                 "Não fique pra trás, melhore aplicativo de simulador real!\n" +
-                "👉 Garanta já o seu aplicativo simulador com muito mais facilidade! Vem comigo!\n\n" +
+                "👉 Garanta já o seu aplicativo simulador com muito mais facilidade! Vem comigo! 🚀\n\n" +
                 "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
     imagemUrl: "https://i.postimg.cc/0Q7zZY6r/download-(1).png",
     linkEntrega: "https://www.mediafire.com/file/gpilqf0igtacjvh/Base_-_Banco_Inter_100%2525_Editavel.7z/file"
@@ -77,13 +77,13 @@ const PRODUTOS = {
 
 let pedidos = lerArquivo(PEDIDOS_ARQUIVO);
 
-// ========== TECLADO FIXO ==========
+// ========== FUNÇÃO: GERAR TECLADO FIXO ✅ ==========
 function gerarTecladoFixo() {
   return {
     keyboard: [
-      ['Ver Produtos'],
-      ['Canal YouTube', 'Suporte'],
-      ['Sobre']
+      ['🛒 Ver Produtos'],
+      ['📖 Sobre', '💬 Suporte'],
+      ['ℹ️ Inf. Compras', '📦 Inf. Produto', '💰 Pagamento']
     ],
     resize_keyboard: true,
     one_time_keyboard: false
@@ -137,7 +137,7 @@ app.post('/mercado-pago-webhook', async (req, res) => {
     }
     res.sendStatus(200);
   } catch (erro) {
-    console.error('⚠️ Erro webhook:', erro.message);
+    console.error('❌ Erro webhook:', erro.message);
     res.sendStatus(500);
   }
 });
@@ -150,15 +150,15 @@ bot.onText(/\/start/, async (msg) => {
   
   const textoBoasVindas =
     'Bem-vindo(a) à SENS7X MAX!\n\n' +
-    'É um prazer enorme receber você aqui! Você acabou de chegar no lugar certo pra turbinar sua jogabilidade no Free Fire e alcançar resultados que antes pareciam impossíveis.\n\n' +
+    'É um prazer enorme receber você aqui! 🎉 Você acabou de chegar no lugar certo pra turbinar sua jogabilidade no Free Fire e alcançar resultados que antes pareciam impossíveis.\n\n' +
     'Aqui na SENS7X MAX nós oferecemos os melhores packs de sensibilidade, cuidadosamente calibrados e testados para você dar muito mais tiros na cabeça, ter movimentos mais precisos e dominar todas as suas partidas!\n\n' +
     'O que você encontra por aqui:\n' +
-    '👉 Packs de sensibilidade otimizados para qualquer celular\n' +
-    '👉 Configurações atualizadas constantemente\n' +
-    '👉 Dicas exclusivas para melhorar ainda mais seu jogo\n' +
-    '👉 Suporte sempre que precisar\n\n' +
+    '✅ Packs de sensibilidade otimizados para qualquer celular\n' +
+    '✅ Configurações atualizadas constantemente\n' +
+    '✅ Dicas exclusivas para melhorar ainda mais seu jogo\n' +
+    '✅ Suporte sempre que precisar\n\n' +
     'Fique à vontade, explore tudo e aproveite ao máximo! Se tiver qualquer dúvida, é só chamar que eu te ajudo em instantes.\n\n' +
-    'Obrigado pela confiança e preferência!';
+    'Obrigado pela confiança e preferência! 🙏❤️';
 
   try {
     await bot.sendPhoto(chatId, IMAGEM_LOGO_URL, { caption: '' });
@@ -174,74 +174,130 @@ bot.onText(/\/start/, async (msg) => {
   }, 500);
 });
 
-// 📥 Botão: Ver Produtos — CORRIGIDO
-bot.onText(/Ver Produtos/, async (msg) => {
-  const chatId = msg.chat.id;
-  let mensagem = '👉 NOSSA LOJA — PRODUTOS DISPONÍVEIS:\n\n';
-  
-  for (const [chave, prod] of Object.entries(PRODUTOS)) {
-    mensagem += '━━━━━━━━━━━━━━━━\n';
-    mensagem += `📥 ${prod.nome}\n`;
-    mensagem += `👉 Valor: R$ ${prod.valor.toFixed(2)}\n`;
-    mensagem += `👉 Digite /comprar ${chave}\n\n`;
-  }
-  
-  mensagem += '━━━━━━━━━━━━━━━━\n' +
-              '👉 Como comprar:\n' +
-              '👉 Digite /comprar [código do produto]';
-  
-  await bot.sendMessage(chatId, mensagem);
-});
+// ======================================
+// 🆃 NOVOS COMANDOS DE DÚVIDAS FREQUENTES ✅
+// ======================================
 
-// 📥 Comando /loja — Ver produtos
-bot.onText(/\/loja/, async (msg) => {
-  const chatId = msg.chat.id;
-  let mensagem = '👉 NOSSA LOJA — PRODUTOS DISPONÍVEIS:\n\n';
-  
-  for (const [chave, prod] of Object.entries(PRODUTOS)) {
-    mensagem += '━━━━━━━━━━━━━━━━\n';
-    mensagem += `📥 ${prod.nome}\n`;
-    mensagem += `👉 Valor: R$ ${prod.valor.toFixed(2)}\n`;
-    mensagem += `👉 Digite /comprar ${chave}\n\n`;
-  }
-  
-  mensagem += '━━━━━━━━━━━━━━━━\n' +
-              '👉 Como comprar:\n' +
-              '👉 Digite /comprar [código do produto]';
-  
-  await bot.sendMessage(chatId, mensagem);
-});
-
-// 📺 Botão: Canal YouTube
-bot.onText(/Canal YouTube/, async (msg) => {
+// ℹ️ /Infcompras — SOBRE COMPRAS
+bot.onText(/\/Infcompras|ℹ️ Inf\. Compras/, async (msg) => {
   await bot.sendMessage(msg.chat.id,
-    '👉 Nosso Canal no YouTube:\n\n' +
-    'https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7\n\n' +
-    '👉 Se inscreva e acompanhe nossas novidades!'
+    '🛒 SOBRE AS COMPRAS:\n\n' +
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+    '❓ Como faço para comprar?\n' +
+    '👉 É bem simples! Escolha seu produto, digite /comprar [nome-do-produto], pague com Pix e receba o link na hora aqui no bot! 🚀\n\n' +
+    '❓ O pagamento é seguro?\n' +
+    '👉 Sim! Processado pelo Mercado Pago, um dos sistemas mais seguros do Brasil. Seus dados estão protegidos! 🔒\n\n' +
+    '❓ Quanto tempo demora para chegar?\n' +
+    '👉 Na hora! Assim que o pagamento é confirmado, o link aparece automaticamente aqui! ⏳✅\n\n' +
+    '❓ Não recebi meu produto, o que faço?\n' +
+    '👉 Confirme se o pagamento foi aprovado. Se sim e não chegou, mande mensagem pra gente que reenviamos ou resolvemos em até 24h! 💬\n' +
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━'
   );
 });
 
-// 💬 Botão: Suporte
-bot.onText(/Suporte/, async (msg) => {
+// 📦 /InfProduto — SOBRE OS PRODUTOS
+bot.onText(/\/InfProduto|📦 Inf\. Produto/, async (msg) => {
   await bot.sendMessage(msg.chat.id,
-    '👉 Suporte — SENS7X MAX\n\n' +
-    '👉 Canal YouTube: @fael_100k_yt\n' +
-    '👉 Dúvidas? É só mandar mensagem!\n\n' +
-    '👉 Boa sorte nas partidas!'
+    '📦 SOBRE OS PRODUTOS:\n\n' +
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+    '❓ Funciona no Android?\n' +
+    '✅ Sim! Funciona em qualquer celular Android! 📱\n\n' +
+    '❓ Funciona no iOS/iPhone?\n' +
+    '⚠️ No momento os packs são otimizados para Android.\n\n' +
+    '❓ Funciona no emulador?\n' +
+    '❌ Não funciona no emulador.\n\n' +
+    '❓ Precisa reiniciar o jogo?\n' +
+    '👉 Se for arquivo sim, caso seja somente pack não é necessário reiniciar o dispositivo!\n\n' +
+    '❓ Tem risco de banimento?\n' +
+    '👉 Não! Caso use arquivos de terceiros há riscos, mas sendo somente packs de sensibilidade não há nenhum risco! ✅🔒\n\n' +
+    '❓ Pode usar em mais de um dispositivo?\n' +
+    '👉 Pode usar, mas por favor não compartilhe com outras pessoas — cada compra é para uso pessoal. Obrigado! 🙏❤️\n' +
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━'
+  );
+});
+
+// 💰 /pay — SOBRE O PAGAMENTO
+bot.onText(/\/pay|💰 Pagamento/, async (msg) => {
+  await bot.sendMessage(msg.chat.id,
+    '💰 SOBRE O PAGAMENTO:\n\n' +
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+    '❓ Quais formas de pagamento?\n' +
+    '👉 Pix no momento! Mas também aceitamos cartão em até 2x para produtos acima de R$ 50,00 💳\n\n' +
+    '❓ Posso pagar com cartão?\n' +
+    '👉 Sim, para produtos acima de R$ 50,00 em até 2x sem juros!\n\n' +
+    '❓ Preciso criar conta no Mercado Pago?\n' +
+    '👉 Não! Paga direto pelo QR Code ou código Pix, sem cadastro extra ✅\n\n' +
+    '❓ O que fazer se a sensibilidade não ficar boa?\n' +
+    '👉 Cada celular é único! Nosso pack é o ponto de partida — ajuste um pouquinho conforme seu aparelho e estilo de jogo, com o tempo deixa perfeito! 🎯🔥\n\n' +
+    '❓ Posso pedir reembolso?\n' +
+    '👉 Como é produto digital e envio imediato, não fazemos reembolso após envio do link. Mas se tiver qualquer problema com o produto, nos avise que resolvemos! 💬\n' +
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━'
+  );
+});
+
+// ======================================
+// DEMAIS COMANDOS DO BOT ✅
+// ======================================
+
+// 🛒 Botão: Ver Produtos
+bot.onText(/🛒 Ver Produtos/, async (msg) => {
+  const chatId = msg.chat.id;
+  let mensagem = '🛒 NOSSA LOJA — PRODUTOS DISPONÍVEIS:\n\n';
+  
+  for (const [chave, prod] of Object.entries(PRODUTOS)) {
+    mensagem += `━━━━━━━━━━━━━━━━\n`;
+    mensagem += `📦 ${prod.nome}\n`;
+    mensagem += `💲 Valor: R$ ${prod.valor.toFixed(2)}\n`;
+    mensagem += `👉 Digite /comprar ${chave}\n\n`;
+  }
+  
+  mensagem += '━━━━━━━━━━━━━━━━\n' +
+              '💡 Como comprar:\n' +
+              'Digite /comprar [código do produto]';
+  
+  await bot.sendMessage(chatId, mensagem);
+});
+
+// 💬 Botão: Suporte
+bot.onText(/💬 Suporte/, async (msg) => {
+  await bot.sendMessage(msg.chat.id,
+    '📞 Suporte — SENS7X MAX\n\n' +
+    '📺 Canal YouTube: @fael_100k_yt\n' +
+    '💬 Dúvidas? É só mandar mensagem!\n\n' +
+    'Boa sorte nas partidas! 🎯🔥'
   );
 });
 
 // 📖 Botão: Sobre
-bot.onText(/Sobre/, async (msg) => {
+bot.onText(/📖 Sobre/, async (msg) => {
   const vendas = Object.values(pedidos).filter(p => p.entregue).length;
   await bot.sendMessage(msg.chat.id,
-    '👉 SENS7X MAX\n\n' +
-    '👉 Melhores packs de sensibilidade para Free Fire\n' +
-    '👉 Produtos: ' + Object.keys(PRODUTOS).length + '\n' +
-    '👉 Vendas realizadas: ' + vendas + '\n' +
-    '👉 Canal: @fael_100k_yt\n\n' +
-    '👉 Boa sorte nas partidas!'
+    '✅ SENS7X MAX\n\n' +
+    '🎯 Melhores packs de sensibilidade para Free Fire\n' +
+    '📦 Produtos: ' + Object.keys(PRODUTOS).length + '\n' +
+    '💰 Vendas realizadas: ' + vendas + '\n' +
+    '📺 Canal: @fael_100k_yt\n\n' +
+    'Boa sorte nas partidas! 🎯🔥'
   );
+});
+
+// 📋 /loja — Ver produtos
+bot.onText(/\/loja/, async (msg) => {
+  const chatId = msg.chat.id;
+  let mensagem = '🛒 NOSSA LOJA — PRODUTOS DISPONÍVEIS:\n\n';
+  
+  for (const [chave, prod] of Object.entries(PRODUTOS)) {
+    mensagem += `━━━━━━━━━━━━━━━━\n`;
+    mensagem += `📦 ${prod.nome}\n`;
+    mensagem += `💲 Valor: R$ ${prod.valor.toFixed(2)}\n`;
+    mensagem += `👉 Digite /comprar ${chave}\n\n`;
+  }
+  
+  mensagem += '━━━━━━━━━━━━━━━━\n' +
+              '💡 Como comprar:\n' +
+              'Digite /comprar [código do produto]';
+  
+  await bot.sendMessage(chatId, mensagem);
 });
 
 // 🛒 /comprar — Comprar produto
@@ -253,7 +309,7 @@ bot.onText(/\/comprar (.+)/, async (msg, match) => {
   if (!produto) {
     await bot.sendMessage(chatId,
       '⚠️ Produto não encontrado!\n\n' +
-      '👉 Digite /loja para ver os produtos disponíveis.'
+      'Digite /loja para ver os produtos disponíveis.'
     );
     return;
   }
@@ -293,33 +349,33 @@ bot.onText(/\/comprar (.+)/, async (msg, match) => {
     try {
       await bot.sendPhoto(chatId, produto.imagemUrl, {
         caption:
-          `📥 ${produto.nome}\n\n` +
-          `👉 Valor: R$ ${valorFormatado}\n\n` +
+          `📦 ${produto.nome}\n\n` +
+          `💲 Valor: R$ ${valorFormatado}\n\n` +
           `${produto.descricao}\n\n` +
-          '⏳ Pague com Pix abaixo:'
+          '👇 Pague com Pix abaixo:'
       });
     } catch (e) {
       await bot.sendMessage(chatId,
-        `📥 ${produto.nome}\n` +
-        `👉 Valor: R$ ${valorFormatado}\n\n` +
+        `📦 ${produto.nome}\n` +
+        `💲 Valor: R$ ${valorFormatado}\n\n` +
         `${produto.descricao}\n\n` +
-        '⏳ Pague com Pix abaixo:'
+        '👇 Pague com Pix abaixo:'
       );
     }
 
     const qrCodeBuffer = Buffer.from(qrCodeBase64, 'base64');
     await bot.sendPhoto(chatId, qrCodeBuffer, {
       caption:
-        '👉 QR Code Pix ✅\n\n' +
-        '👉 Código Copia e Cola:\n\n' + pixCode + '\n\n' +
-        '👉 Link de pagamento: ' + ticketUrl + '\n\n' +
-        '⏳ Após pagar, aguarde — envio automático!'
+        '📸 QR Code Pix ✅\n\n' +
+        '📋 Código Copia e Cola:\n\n' + pixCode + '\n\n' +
+        '🔗 Link de pagamento: ' + ticketUrl + '\n\n' +
+        '⏳ Após pagar, aguarde — envio automático! 🚀'
     });
 
     console.log(`✅ Pedido criado: ${pedidoId} — ${produto.nome}`);
 
   } catch (erro) {
-    console.error('⚠️ Erro:', erro.message);
+    console.error('❌ Erro:', erro.message);
     await bot.sendMessage(chatId, '⚠️ Erro ao gerar pagamento. Tente novamente.');
   }
 });
@@ -330,5 +386,5 @@ app.listen(PORT, async () => {
   await bot.setWebHook(`${RENDER_URL}${WEBHOOK_PATH}`);
   console.log(`✅ Webhook Telegram: ${RENDER_URL}${WEBHOOK_PATH}`);
   console.log(`✅ Webhook Mercado Pago: ${RENDER_URL}/mercado-pago-webhook`);
-  console.log('✅ SENS7X MAX — Bot pronto!');
+  console.log('✅ SENS7X MAX — Bot pronto! 🚀🔥');
 });
