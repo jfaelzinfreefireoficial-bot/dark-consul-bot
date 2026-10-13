@@ -72,6 +72,22 @@ const PRODUTOS = {
                 "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
     imagemUrl: "https://i.postimg.cc/0Q7zZY6r/download-(1).png",
     linkEntrega: "https://www.mediafire.com/file/gpilqf0igtacjvh/Base_-_Banco_Inter_100%2525_Editavel.7z/file"
+  },
+  "capcut-pro": {
+    id: "capcut-pro",
+    nome: "capcut-pro",
+    valor: 5.00,
+    descricao: "VENHA ADQUIRIR O MELHOR APLICATIVO EDITAVEL COMPLETO\n\n" +
+                "Lembrando nao me responsabilizo por uso de forma errado, fique ciente de seus atos!\n\n" +
+                "Simulador\n" +
+                "Pode compartilhar com diversas plataformas e amigos\n" +
+                "Perfil, foto, nome 100% editaveis\n" +
+                "GG\n\n" +
+                "Nao fique pra tras, melhore aplicativo de simulador real!\n" +
+                "Garanta ja o seu aplicativo simulador com muito mais facilidade! Vem comigo!\n\n" +
+                "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
+    imagemUrl: "https://i.postimg.cc/0Q7zZY6r/download-(1).png",
+    linkEntrega: "https://www.mediafire.com/file/gpilqf0igtacjvh/Base_-_Banco_Inter_100%2525_Editavel.7z/file"
   }
 };
 
