@@ -44,7 +44,7 @@ const PRODUTOS = {
   "sens7x-freefire": {
     id: "sens7x-freefire",
     nome: "SENS7X FREE FIRE",
-    valor: 5.00,
+    valor: 0.80,
     descricao: "VENHA ADQUIRIR O MELHOR PACK DE SENSIBILIDADE FREE FIRE!\n\n" +
                 "Quer dar aquele salto de qualidade nas suas partidas? Esse pack foi testado e ajustado pra voce acertar muito mais tiros na cabeca!\n\n" +
                 "Sensibilidade completa\n" +
@@ -54,13 +54,13 @@ const PRODUTOS = {
                 "Nao fique pra tras, melhore seu jogo HOJE!\n" +
                 "Garanta ja o seu e suba de rank com muito mais facilidade! Vem comigo!\n\n" +
                 "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
-    imagemUrl: "https://i.postimg.cc/TwBc5qzw/1791720026046.jpg",
+    imagemUrl: "https://i.postimg.cc/85xdy48K/1791788242673.jpg",
     linkEntrega: "https://www.mediafire.com/file/sjnmojlnhi0kga5/REAL_SENS7X_PRO_-_FREE_FIRE_CLIENTE.7z/file"
   },
-  "jogo-gg": {
-    id: "jogo-gg",
-    nome: "jogo-gg",
-    valor: 5.00,
+  "inter-editavel": {
+    id: "inter-editavel",
+    nome: "INTER EDITÁVEL COMPLETO",
+    valor: 10.00,
     descricao: "VENHA ADQUIRIR O MELHOR APLICATIVO EDITAVEL COMPLETO\n\n" +
                 "Lembrando nao me responsabilizo por uso de forma errado, fique ciente de seus atos!\n\n" +
                 "Simulador\n" +
@@ -71,12 +71,12 @@ const PRODUTOS = {
                 "Garanta ja o seu aplicativo simulador com muito mais facilidade! Vem comigo!\n\n" +
                 "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
     imagemUrl: "https://i.postimg.cc/0Q7zZY6r/download-(1).png",
-    linkEntrega: "https://www.mediafire.com/file/gpilqf0igtacjvh/Base_-_Banco_Inter_100%2525_Editavel.7z/file"
+    linkEntrega: "https://www.mediafire.com/file/uf1nhkkev88v380/INTER_EDIT%25C3%2581VEL_CLIENTE_%25C2%25AEFAEL_VENDAS_OFICIAL.7z/file"
   },
-  "capcut-pro": {
-    id: "capcut-pro",
-    nome: "capcut-pro",
-    valor: 5.00,
+  "nubank-editavel": {
+    id: "nubank-editavel",
+    nome: "NUBANK EDITÁVEL COMPLETO",
+    valor: 10.00,
     descricao: "VENHA ADQUIRIR O MELHOR APLICATIVO EDITAVEL COMPLETO\n\n" +
                 "Lembrando nao me responsabilizo por uso de forma errado, fique ciente de seus atos!\n\n" +
                 "Simulador\n" +
@@ -85,9 +85,9 @@ const PRODUTOS = {
                 "GG\n\n" +
                 "Nao fique pra tras, melhore aplicativo de simulador real!\n" +
                 "Garanta ja o seu aplicativo simulador com muito mais facilidade! Vem comigo!\n\n" +
-                "Canal oficial: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
-    imagemUrl: "https://i.postimg.cc/0Q7zZY6r/download-(1).png",
-    linkEntrega: "https://www.mediafire.com/file/gpilqf0igtacjvh/Base_-_Banco_Inter_100%2525_Editavel.7z/file"
+                "Canal oficial YouTube: https://youtube.com/@fael_100k_yt?si=Kb48mzTeHsbmRhk7",
+    imagemUrl: "https://i.postimg.cc/nzkvYxVt/NUBANK.png",
+    linkEntrega: "https://www.mediafire.com/file/06tr2nywlodysjb/NUBANK_EDIT%25C3%2581VEL_CLIENTE_%25C2%25AEFAEL_VENDAS_OFICIAL.7z/file"
   }
 };
 
